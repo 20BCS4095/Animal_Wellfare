@@ -54,7 +54,7 @@ def submit():
             call = client.calls.create(
                 to=phone_number,  # Recipient's phone number
                 from_=TWILIO_PHONE_NUMBER,  # Your Twilio number
-                url='http://127.0.0.1:5000/voice'  # This URL will provide the TwiML instructions
+                url='https://animal-wellfare1.onrender.com/voice'  # This URL will provide the TwiML instructions
             )
             
             return render_template('index.html', message=f"Message sent to {owner_name} at {phone_number}. And also for NGO {ngo}.")
