@@ -39,7 +39,7 @@ def submit():
             owner_name = matching_record.iloc[0]['owner_name']
             phone_number = "+91" + str(matching_record.iloc[0]['phone_number'])
             ngo ="Animal Welfare"
-            ngo_number="+917358933435"
+            ngo_number="+919361380787"
             # Send a message to the owner's phone number
             message = client.messages.create(
                 body=f"Hello {owner_name}, we have matched your {animal_name} ({animal_type}, {species}).",
