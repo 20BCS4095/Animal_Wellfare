@@ -87,8 +87,17 @@ def submit():
                     )
                 except TwilioRestException as e:
                     return render_template('index.html', message=f"Error sending message to NGO: {str(e)}")
+                try:
+                    # Make a call to the owner's number
+                    call = client.calls.create(
+                        to=ngo_number,  # Recipient's phone number
+                        from_=TWILIO_PHONE_NUMBER,  # Your Twilio number
+                        url='https://animal-wellfare1.onrender.com/voice'  # This URL will provide the TwiML instructions
+                    )
+                except TwilioRestException as e:
+                    return render_template('index.html', message=f"Error making a call to {phone_number}: {str(e)}")
                 
-                return render_template('index.html', message=f"No matching owner found in the database. So calling only NGO {ngo}.")
+                return render_template('index.html', message=f"No matching owner found in the database. So calling only NGO {ngo} number {ngo_number}.")
         except Exception as e:
             # Catch all exceptions related to form submission and processing
             return render_template('index.html', message=f"An unexpected error occurred: {str(e)}")
