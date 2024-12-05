@@ -43,7 +43,7 @@ def submit():
                 phone_number = "+91" + str(matching_record.iloc[0]['phone_number'])
                 ngo = "Animal Welfare"
                 ngo_number = "+917358933435"
-                
+                printf(phone_number);
                 # Send a message to the owner's phone number
                 try:
                     message_owner = client.messages.create(
