@@ -82,7 +82,7 @@ def submit():
                 try:
                     # Send a message to the NGO (only if no match found)
                     message_ngo = client.messages.create(
-                        body=f"Hello {ngo}, we have matched your {animal_name} ({animal_type}, {species}).",
+                        body=f"Hello {ngo}, we have matched your {animal_name} ({animal_type}, {species}) and location is {place}.",
                         from_=TWILIO_PHONE_NUMBER,
                         to=ngo_number
                     )
