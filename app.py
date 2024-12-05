@@ -28,6 +28,7 @@ def submit():
         animal_name = request.form['animal_name']  # animal name field
         animal_type = request.form['animal_type']  # animal type field
         species = request.form['species']  # species field
+        place = request.form['accident_location']
 
         try:
             # Find matching record in the Excel sheet
@@ -46,7 +47,7 @@ def submit():
                 # Send a message to the owner's phone number
                 try:
                     message_owner = client.messages.create(
-                        body=f"Hello {owner_name}, we have matched your {animal_name} ({animal_type}, {species}).",
+                        body=f"Hello {owner_name}, we have matched your {animal_name} ({animal_type}, {species}) and location is {place}.",
                         from_=TWILIO_PHONE_NUMBER,
                         to=phone_number
                     )
@@ -56,7 +57,7 @@ def submit():
                 try:
                     # Send a message to the NGO
                     message_ngo = client.messages.create(
-                        body=f"Hello {ngo}, we have matched your {animal_name} ({animal_type}, {species}).",
+                        body=f"Hello {ngo}, we have matched your {animal_name} ({animal_type}, {species}) and location is {place}.",
                         from_=TWILIO_PHONE_NUMBER,
                         to=ngo_number
                     )
@@ -73,7 +74,7 @@ def submit():
                 except TwilioRestException as e:
                     return render_template('index.html', message=f"Error making a call to {phone_number}: {str(e)}")
 
-                return render_template('index.html', message=f"Message sent to {owner_name} at {phone_number}. And also for NGO {ngo}.")
+                return render_template('index.html', message=f"Message sent to {owner_name} at {phone_number}. And also for NGO {ngo} and location is {place}.")
             else:
                 ngo = "Animal Welfare"
                 ngo_number = "+917358933435"
@@ -97,7 +98,7 @@ def submit():
                 except TwilioRestException as e:
                     return render_template('index.html', message=f"Error making a call to {phone_number}: {str(e)}")
                 
-                return render_template('index.html', message=f"No matching owner found in the database. So calling only NGO {ngo} number {ngo_number}.")
+                return render_template('index.html', message=f"No matching owner found in the database. So calling only NGO {ngo} number {ngo_number} and location is {place}.")
         except Exception as e:
             # Catch all exceptions related to form submission and processing
             return render_template('index.html', message=f"An unexpected error occurred: {str(e)}")
